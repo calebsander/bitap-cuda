@@ -16,7 +16,7 @@ void preprocess_pattern(const char *pattern, pattern_t *processed_pattern) {
 	for (size_t i = 0; i < length; i++) {
 		processed_pattern->char_masks[(unsigned char) pattern[i]] |= MASK_BIT(i);
 	}
-	processed_pattern->end_mask = MASK_BIT(length - 1);
+	if (length) processed_pattern->end_mask = MASK_BIT(length - 1);
 }
 
 size_t find_exact(const pattern_t *pattern, const char *text, size_t text_length) {
