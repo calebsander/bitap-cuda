@@ -144,7 +144,7 @@ int main(int argc, char **argv) {
 				fwrite(&buffer[line_start], sizeof(char), last_index - line_start, stdout);
 			}
 
-			// Save the
+			// Save the unconsumed part of the last line
 			memmove(buffer, &buffer[buffer_size], sizeof(char[buffer_kept]));
 		}
 		if (!*filename) break;
