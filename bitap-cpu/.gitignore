@@ -1,4 +1,4 @@
 *.o
 agrep
 fgrep
-fuzz
+fuzz-literal-exact

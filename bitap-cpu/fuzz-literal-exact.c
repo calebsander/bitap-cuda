@@ -1,6 +1,6 @@
-#include "exact.h"
 #include <assert.h>
 #include <string.h>
+#include "exact.h"
 
 int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size) {
 	if (!size) return 0;
@@ -10,8 +10,12 @@ int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size) {
 	size--;
 
 	if (size < pattern_length) return 0;
-	// Ensure the pattern doesn't contain a premature null terminator
-	if (memchr(data, '\0', pattern_length)) return 0;
+	// Ensure the pattern doesn't contain special characters
+	if (
+		memchr(data, '\\', pattern_length) ||
+		memchr(data, '.', pattern_length) ||
+		memchr(data, '[', pattern_length)
+	) return 0;
 	char pattern[pattern_length + 1];
 	memcpy(pattern, data, pattern_length);
 	pattern[pattern_length] = '\0';
@@ -24,10 +28,10 @@ int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size) {
 	size--;
 
 	if (size < text_length) return 0;
-	char *text = (char *) data;
+	const char *text = (const char *) data;
 	// Ensure the text doesn't contain a premature null terminator
-	if (memchr(text, '\0', text_length)) return 0;
-
+	char *text_end = memchr(text, '\0', text_length);
+	if (text_end) text_length = text_end - text;
 	char *pattern_match = strnstr(text, pattern, text_length);
 	pattern_t processed_pattern;
 	preprocess_pattern(pattern, &processed_pattern);
