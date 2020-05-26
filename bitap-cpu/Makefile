@@ -8,7 +8,7 @@ ifdef DEBUG
 	LDFLAGS += -fsanitize=address,undefined
 endif
 
-EXECUTABLES = agrep fgrep
+EXECUTABLES = agrep fgrep bench-oanc
 
 all: $(EXECUTABLES)
 
@@ -16,7 +16,10 @@ agrep: agrep.o fuzzy.o pattern.o
 fgrep: fgrep.o exact.o pattern.o
 fuzz-%: fuzz-%.c exact.o pattern.o
 	$(CC) $(CFLAGS) -fsanitize=fuzzer $^ -o $@
+bench-oanc: fuzzy.o bench.o pattern.o
 
+bench.o: bench.h
+bench-oanc.o: bench.h
 exact.o: exact.h pattern.h
 fuzzy.o: fuzzy.h pattern.h
 pattern.o: pattern.h

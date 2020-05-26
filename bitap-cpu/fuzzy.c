@@ -24,6 +24,8 @@ void find_fuzzy(
 	for (size_t index = 0; index < text_length; index++) {
 		// `char_mask` stores which indices of the pattern match this character
 		pattern_mask_t char_mask = pattern->char_masks[(unsigned char) text[index]];
+		// TODO: newline character should poison surrounding matches.
+		// Currently, it can count as an insertion, leading to matches across lines.
 
 		// `last_fewer_errors_mask` stores the matches mask
 		// corresponding to 1 fewer errors, before processing this character

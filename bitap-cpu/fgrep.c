@@ -92,6 +92,7 @@ int main(int argc, char **argv) {
 		for (;;) {
 			// We keep `buffer_kept` characters from the last chunk, then fill the buffer
 			size_t buffer_left = BUFFER_SIZE - buffer_kept;
+			// TODO use `read()` syscall to avoid waiting for user input on stdin
 			size_t buffer_read = fread(&buffer[buffer_kept], sizeof(char), buffer_left, file);
 			if (ferror(file)) {
 				file_error = true;
