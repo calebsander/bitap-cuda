@@ -1,8 +1,13 @@
 #include "exact.h"
 
-size_t find_exact(const pattern_t *pattern, const char *text, size_t text_length) {
-	// A length-0 pattern is matched everywhere
-	if (!pattern->length) return 0;
+void find_exact(
+	const pattern_t *pattern,
+	const char *text,
+	size_t text_length,
+	size_t *match_indices,
+	size_t *match_count
+) {
+	*match_count = 0;
 
 	/* Bit `i` of `matches_mask` is set iff
 	 * the last `i + 1` characters of `text` match
@@ -22,10 +27,7 @@ size_t find_exact(const pattern_t *pattern, const char *text, size_t text_length
 		if (matches_mask & pattern->end_mask) {
 			// `text[index]` matches the `pattern_length` character of `pattern`,
 			// so `text[index - pattern_length + 1]` matches the first character of `pattern`
-			return index - pattern->length + 1;
+			match_indices[(*match_count)++] = index - pattern->length + 1;
 		}
 	}
-
-	// No match of the pattern was found in the text
-	return NOT_FOUND;
 }

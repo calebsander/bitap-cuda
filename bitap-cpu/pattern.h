@@ -14,6 +14,7 @@
 	#error "Invalid pattern length"
 #endif
 
+#define EOL '\n'
 #define BYTE_BITS 8
 #define CHAR_VALUES (1 << (sizeof(char) * BYTE_BITS))
 

@@ -3,8 +3,6 @@
 #include <stdbool.h>
 #include <string.h>
 
-#define EOL '\n'
-
 // Sets or unsets a bit of a character's pattern mask
 void update_char(
 	pattern_t *pattern,
@@ -75,6 +73,9 @@ void update_escaped(pattern_t *pattern, char c, bool add, pattern_mask_t index_m
 }
 
 void preprocess_pattern(const char *pattern, pattern_t *processed_pattern) {
+	// Empty patterns cause problems and don't seem useful
+	assert(*pattern);
+
 	// Construct bitmasks representing where each character appears in `pattern`.
 	// Bit `i` of `char_masks[c]` is set iff `c` occurs at index `i + 1` of `pattern`.
 	memset(&processed_pattern->char_masks, 0, sizeof(processed_pattern->char_masks));

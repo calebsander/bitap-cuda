@@ -1,13 +1,14 @@
 #include "fuzzy.h"
 
-size_t find_fuzzy(
+void find_fuzzy(
 	const pattern_t *pattern,
 	size_t errors,
 	const char *text,
-	size_t text_length
+	size_t text_length,
+	size_t *match_indices,
+	size_t *match_count
 ) {
-	// A length-0 pattern is matched everywhere
-	if (!pattern->length) return 0;
+	*match_count = 0;
 
 	/* Compute the initial masks at each error distance.
 	 * As in the exact-matching case,
@@ -51,8 +52,8 @@ size_t find_fuzzy(
 		/* Check if all the characters in the pattern match with the maximum allowed errors.
 		 * We can't tell where the match started since we don't differentiate
 		 * insertions vs. deletions vs. substitutions. So just return the end index. */
-		if (fewer_errors_mask & pattern->end_mask) return index + 1;
+		if (fewer_errors_mask & pattern->end_mask) {
+			match_indices[(*match_count)++] = index + 1;
+		}
 	}
-
-	return NOT_FOUND;
 }

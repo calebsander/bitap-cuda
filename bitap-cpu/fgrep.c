@@ -8,6 +8,17 @@
 	#include "exact.h"
 #endif
 
+#define BUFFER_SIZE (128 << 10) // process 128 KB at a time
+
+// Returns the first index of the last line in a buffer with the given start and length
+size_t last_line_start(char *buffer, size_t length) {
+	while (length) {
+		length--;
+		if (buffer[length] == EOL) return length + 1;
+	}
+	return 0;
+}
+
 int main(int argc, char **argv) {
 	#ifdef FUZZY
 		if (argc < 3) {
@@ -22,6 +33,10 @@ int main(int argc, char **argv) {
 	#endif
 
 	char *pattern = argv[1];
+	if (!*pattern) {
+		fputs("Pattern cannot be empty\n", stderr);
+		return 2;
+	}
 	if (strlen(pattern) > PATTERN_LENGTH) {
 		fprintf(stderr, "Pattern cannot exceed %d characters\n", PATTERN_LENGTH);
 		return 2;
@@ -40,6 +55,14 @@ int main(int argc, char **argv) {
 	pattern_t processed_pattern;
 	preprocess_pattern(pattern, &processed_pattern);
 
+	// Allocate input buffer and array of matches
+	char *buffer = malloc(sizeof(char[BUFFER_SIZE]));
+	size_t *match_indices = malloc(sizeof(size_t[BUFFER_SIZE]));
+	if (!(buffer && match_indices)) {
+		fputs("Failed to allocate buffer\n", stderr);
+		return 3;
+	}
+
 	// Process each file
 	bool matched = false;
 	bool file_error = false;
@@ -52,6 +75,7 @@ int main(int argc, char **argv) {
 	do {
 		// Open the file
 		FILE *file;
+		size_t filename_length;
 		if (*filename) {
 			file = fopen(*filename, "r");
 			if (!file) {
@@ -59,42 +83,76 @@ int main(int argc, char **argv) {
 				fprintf(stderr, "%s: ", argv[0]);
 				perror(*filename);
 			}
+			filename_length = strlen(*filename);
 		}
 		else file = stdin;
 
-		// Try to match the pattern against each line
+		// Try to match the pattern against each chunk of the file
+		size_t buffer_kept = 0;
 		for (;;) {
-			char *line = NULL;
-			size_t line_capacity = 0;
-			ssize_t line_length = getline(&line, &line_capacity, file);
-			if (line_length < 0) {
-				free(line);
+			// We keep `buffer_kept` characters from the last chunk, then fill the buffer
+			size_t buffer_left = BUFFER_SIZE - buffer_kept;
+			size_t buffer_read = fread(&buffer[buffer_kept], sizeof(char), buffer_left, file);
+			if (ferror(file)) {
+				file_error = true;
+				fprintf(stderr, "Failed to read %s: ", argv[0]);
+				perror(*filename);
 				break;
 			}
 
-			#ifdef FUZZY
-				size_t index = find_fuzzy(&processed_pattern, errors, line, line_length);
-			#else
-				size_t index = find_exact(&processed_pattern, line, line_length);
-			#endif
-			if (index != NOT_FOUND) {
-				matched = true;
-				if (multiple_files) fprintf(stdout, "%s:", *filename);
-				fwrite(line, sizeof(char), line_length, stdout);
-			}
-			free(line);
-		}
-		if (file == stdin) break;
+			// Compute the total size of the buffer; if it's empty, we are done
+			size_t buffer_size = buffer_kept + buffer_read;
+			if (!buffer_size) break;
 
-		// Ensure that no error occurred while reading the file
-		if (!feof(file)) {
-			file_error = true;
-			fprintf(stderr, "Failed to read file: ");
-			perror(*filename);
+			// If some new characters were read, only search through the last full line
+			if (buffer_read) {
+				buffer_kept = buffer_size - last_line_start(buffer, buffer_size);
+				buffer_size -= buffer_kept;
+			}
+			// Otherwise, the file is missing a trailing newline, so read the entire file
+			else buffer_kept = 0;
+
+			// Find all matches in the buffer
+			size_t match_count;
+			#ifdef FUZZY
+				find_fuzzy(
+					&processed_pattern, errors,
+					buffer, buffer_size,
+					match_indices, &match_count
+				);
+			#else
+				find_exact(&processed_pattern, buffer, buffer_size, match_indices, &match_count);
+			#endif
+
+			// Print out the line containing each match
+			size_t last_index = 0;
+			for (size_t i = 0; i < match_count; i++) {
+				// If this line was already printed, skip it
+				size_t match_index = match_indices[i];
+				if (match_index < last_index) continue;
+
+				matched = true;
+				size_t line_start = last_line_start(buffer, match_index);
+				char *line_end = memchr(&buffer[match_index], '\n', buffer_size - match_index);
+				last_index = line_end ? line_end - buffer + 1 : buffer_size;
+				if (multiple_files) {
+					// Print out the filename as well if multiple files were searched
+					fwrite(*filename, sizeof(char), filename_length, stdout);
+					putchar(':');
+				}
+				fwrite(&buffer[line_start], sizeof(char), last_index - line_start, stdout);
+			}
+
+			// Save the
+			memmove(buffer, &buffer[buffer_size], sizeof(char[buffer_kept]));
 		}
+		if (!*filename) break;
 
 		fclose(file);
 	} while (*++filename);
+
+	free(buffer);
+	free(match_indices);
 
 	if (file_error) return 3;
 	return !matched;
