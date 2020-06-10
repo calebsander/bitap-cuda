@@ -2,6 +2,7 @@
 #define UTILS_H
 
 #include <assert.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <cuda_runtime.h>
 

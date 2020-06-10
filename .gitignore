@@ -1,0 +1,7 @@
+*.o
+agrep
+fgrep
+fuzz-literal-exact
+bench-exact-global
+bench-mmap
+bench-read

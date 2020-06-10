@@ -3,9 +3,12 @@
 
 #include "bitap-cpu/pattern.h"
 
-extern "C" void find_exact(
+#ifdef __cplusplus
+extern "C"
+#endif
+void find_exact(
 	const pattern_t *pattern,
-	const unsigned char *text,
+	const char *text,
 	size_t text_length,
 	size_t *match_indices,
 	size_t *match_count

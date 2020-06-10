@@ -120,9 +120,15 @@ int main(int argc, char **argv) {
 			// If some new characters were read, only search through the last full line
 			if (buffer_read) {
 				buffer_kept = buffer_size - last_line_start(buffer, buffer_size);
+				// In a fuzzy match, the pattern can span multiple lines
+				// by treating the newline character as an insertion
+				#ifdef FUZZY
+					buffer_kept += processed_pattern.length - 1 + errors;
+					if (buffer_kept > buffer_size) buffer_kept = buffer_size;
+				#endif
 				buffer_size -= buffer_kept;
 			}
-			// Otherwise, the file is missing a trailing newline, so read the entire file
+			// Otherwise, at the end of the file, so finish grepping it
 			else buffer_kept = 0;
 
 			// Find all matches in the buffer
@@ -146,8 +152,8 @@ int main(int argc, char **argv) {
 
 				matched = true;
 				size_t line_start = last_line_start(buffer, match_index);
-				char *line_end = memchr(&buffer[match_index], '\n', buffer_size - match_index);
-				last_index = line_end ? line_end - buffer + 1 : buffer_size;
+				char *line_end = memchr(&buffer[match_index], EOL, buffer_size - match_index);
+				last_index = line_end ? (size_t) (line_end - buffer) + 1 : buffer_size;
 				if (multiple_files) {
 					// Print out the filename as well if multiple files were searched
 					fwrite(*filename, sizeof(char), filename_length, stdout);

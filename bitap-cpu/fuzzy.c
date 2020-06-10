@@ -1,4 +1,5 @@
 #include "fuzzy.h"
+#include "bench.h"
 
 void find_fuzzy(
 	const pattern_t *pattern,
@@ -8,6 +9,7 @@ void find_fuzzy(
 	size_t *match_indices,
 	size_t *match_count
 ) {
+	start_time(FIND_MATCHES);
 	*match_count = 0;
 
 	/* Compute the initial masks at each error distance.
@@ -57,4 +59,5 @@ void find_fuzzy(
 			match_indices[(*match_count)++] = index + 1;
 		}
 	}
+	stop_time();
 }

@@ -2,6 +2,7 @@
 #include <assert.h>
 #include <stdbool.h>
 #include <string.h>
+#include "bench.h"
 
 // Sets or unsets a bit of a character's pattern mask
 void update_char(
@@ -75,6 +76,7 @@ void update_escaped(pattern_t *pattern, char c, bool add, pattern_mask_t index_m
 void preprocess_pattern(const char *pattern, pattern_t *processed_pattern) {
 	// Empty patterns cause problems and don't seem useful
 	assert(*pattern);
+	start_time(PROCESS_PATTERN);
 
 	// Construct bitmasks representing where each character appears in `pattern`.
 	// Bit `i` of `char_masks[c]` is set iff `c` occurs at index `i + 1` of `pattern`.
@@ -136,4 +138,5 @@ void preprocess_pattern(const char *pattern, pattern_t *processed_pattern) {
 	assert(pattern_index <= sizeof(pattern_mask_t) * BYTE_BITS);
 	processed_pattern->length = pattern_index;
 	processed_pattern->end_mask = last_index_mask;
+	stop_time();
 }

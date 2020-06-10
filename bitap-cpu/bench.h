@@ -1,26 +1,35 @@
 #ifndef BENCH_H
 #define BENCH_H
 
-#include <stddef.h>
-#include <stdint.h>
+#ifdef BENCH
+	typedef enum {
+		LOAD_FILE,
+		PROCESS_PATTERN,
+		ALLOCATE_INDICES,
+		COPY_TO_GPU,
+		FIND_MATCHES,
+		COPY_FROM_GPU,
+		SORT_MATCHES,
+		FIND_LINES,
 
-typedef uint64_t duration_t;
+		BENCH_STAGES
+	} bench_stage_t;
 
-typedef struct {
-	duration_t pattern_processing;
-	duration_t index_allocation;
-	duration_t fuzzy_match;
-	duration_t sort_matches;
-	duration_t find_lines;
-} times_t;
+	#ifdef __cplusplus
+	extern "C" {
+	#endif
 
-times_t benchmark(
-	const char *pattern,
-	size_t errors,
-	const char *text,
-	size_t text_length
-);
+	void start_time(bench_stage_t);
+	void stop_time(void);
 
-times_t average_times(const times_t *times, size_t length);
+	void print_bench_times(void);
+
+	#ifdef __cplusplus
+	}
+	#endif
+#else
+	#define start_time(stage) do {} while (0)
+	#define stop_time() do {} while (0)
+#endif
 
 #endif // #ifndef BENCH_H
