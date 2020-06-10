@@ -1,5 +1,5 @@
-#ifndef EXACT_GLOBAL_H
-#define EXACT_GLOBAL_H
+#ifndef EXACT_H
+#define EXACT_H
 
 #include "bitap-cpu/pattern.h"
 
@@ -14,4 +14,4 @@ void find_exact(
 	size_t *match_count
 );
 
-#endif // #ifndef EXACT_GLOBAL_H
+#endif // #ifndef EXACT_H

@@ -3,12 +3,11 @@
 #include <string.h>
 #include "bitap-cpu/bench.h"
 #include "cuda_utils.h"
-#include "exact_global.h"
+#include "exact.h"
 
 #define RUNS 100
 #define FILENAME "oanc.txt"
-#define PATTERN "voyage" // "throughout"
-// #define ERRORS 2
+#define PATTERN "voyage"
 
 size_t last_line_start(const char *buffer, size_t length) {
 	while (length) {
