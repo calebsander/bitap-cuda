@@ -16,7 +16,8 @@ int main() {
 	rewind(file);
 	char *text = malloc(length);
 	assert(text);
-	fread(text, 1, length, file);
+	size_t read = fread(text, 1, length, file);
+	assert(read == length);
 	fclose(file);
 
 	times_t bench_times[RUNS];

@@ -11,7 +11,6 @@ void find_fuzzy(
 	*match_count = 0;
 
 	/* Compute the initial masks at each error distance.
-	 * As in the exact-matching case,
 	 * If `distance` errors are allowed, up to `distance` characters of `pattern`
 	 * are already matched at the start of `text` due to deletions. */
 	pattern_mask_t matches_masks[errors + 1];

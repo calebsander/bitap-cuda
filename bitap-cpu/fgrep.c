@@ -7,6 +7,9 @@
 #else
 	#include "exact.h"
 #endif
+#ifdef CUDA
+	#include "../cuda_utils.h"
+#endif
 
 #define BUFFER_SIZE (128 << 10) // process 128 KB at a time
 
@@ -56,8 +59,16 @@ int main(int argc, char **argv) {
 	preprocess_pattern(pattern, &processed_pattern);
 
 	// Allocate input buffer and array of matches
-	char *buffer = malloc(sizeof(char[BUFFER_SIZE]));
-	size_t *match_indices = malloc(sizeof(size_t[BUFFER_SIZE]));
+	#ifdef CUDA
+		// If running on the GPU, allocate in page-locked memory for faster copies
+		char *buffer;
+		CUDA_CALL(cudaMallocHost((void **) &buffer, sizeof(char[BUFFER_SIZE])));
+		size_t *match_indices;
+		CUDA_CALL(cudaMallocHost((void **) &match_indices, sizeof(size_t[BUFFER_SIZE])));
+	#else
+		char *buffer = malloc(sizeof(char[BUFFER_SIZE]));
+		size_t *match_indices = malloc(sizeof(size_t[BUFFER_SIZE]));
+	#endif
 	if (!(buffer && match_indices)) {
 		fputs("Failed to allocate buffer\n", stderr);
 		return 3;
@@ -82,6 +93,7 @@ int main(int argc, char **argv) {
 				file_error = true;
 				fprintf(stderr, "%s: ", argv[0]);
 				perror(*filename);
+				continue;
 			}
 			filename_length = strlen(*filename);
 		}
@@ -152,8 +164,13 @@ int main(int argc, char **argv) {
 		fclose(file);
 	} while (*++filename);
 
-	free(buffer);
-	free(match_indices);
+	#ifdef CUDA
+		CUDA_CALL(cudaFreeHost(buffer));
+		CUDA_CALL(cudaFreeHost(match_indices));
+	#else
+		free(buffer);
+		free(match_indices);
+	#endif
 
 	if (file_error) return 3;
 	return !matched;

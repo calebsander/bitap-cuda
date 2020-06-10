@@ -1,6 +1,6 @@
-PATTERN_LENGTH = 64
+PATTERN_LENGTH = 32
 
-CC = clang
+CC = gcc
 CFLAGS = -Wall -Wextra -O3 -DPATTERN_LENGTH=$(PATTERN_LENGTH)
 
 ifdef DEBUG
