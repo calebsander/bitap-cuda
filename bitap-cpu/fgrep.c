@@ -86,7 +86,7 @@ int main(int argc, char **argv) {
 	do {
 		// Open the file
 		FILE *file;
-		size_t filename_length;
+		size_t filename_length = 0; // initializer is unnecessary, but gcc complains otherwise
 		if (*filename) {
 			file = fopen(*filename, "r");
 			if (!file) {

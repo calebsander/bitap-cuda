@@ -1,4 +1,4 @@
-#include "exact.h"
+#include "bitap-cpu/exact.h"
 #include <stdlib.h>
 #include "bitap-cpu/bench.h"
 #include "cuda_utils.h"
@@ -24,6 +24,8 @@
 
 #define THREADS_PER_BLOCK 1024
 #define BLOCKS 8
+// It's possible that a pattern has started in the last PATTERN_LENGTH characters
+// processed by each block, so they need to be scanned again in the next block.
 #define BLOCK_STRIDE (THREADS_PER_BLOCK - PATTERN_LENGTH)
 
 __global__

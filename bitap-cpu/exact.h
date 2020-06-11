@@ -14,6 +14,9 @@
  *   It must have at least `text_length` entries (in case every index matches).
  * @param match_count will be used to return the number of matches
  */
+#ifdef __cplusplus
+extern "C"
+#endif
 void find_exact(
 	const pattern_t *pattern,
 	const char *text,

@@ -8,17 +8,17 @@ ifdef DEBUG
 	LDFLAGS += -fsanitize=address,undefined
 endif
 
-EXECUTABLES = agrep fgrep bench-mmap bench-read
+EXECUTABLES = agrep fgrep bench_mmap bench_read
 
 all: $(EXECUTABLES)
 
 agrep: agrep.o fuzzy.o pattern.o
 fgrep: fgrep.o exact.o pattern.o
-fuzz-%: fuzz-%.c exact.o pattern.o
+fuzz_%: fuzz_%.c exact.o pattern.o # requires clang
 	$(CC) $(CFLAGS) -fsanitize=fuzzer $^ -o $@
-bench-mmap: bench-mmap.c bench.c fuzzy.c pattern.c
+bench_mmap: bench_mmap.c bench.c fuzzy.c pattern.c
 	$(CC) $(CFLAGS) -DBENCH $^ -lm -o $@
-bench-read: bench-read.c bench.c fuzzy.c pattern.c
+bench_read: bench_read.c bench.c fuzzy.c pattern.c
 	$(CC) $(CFLAGS) -DBENCH $^ -lm -o $@
 
 bench.o: bench.h
@@ -31,4 +31,4 @@ agrep.o: fgrep.c fuzzy.h pattern.h
 fgrep.o: exact.h pattern.h
 
 clean:
-	rm -f *.o $(EXECUTABLES) fuzz-literal-exact
+	rm -f *.o $(EXECUTABLES) fuzz_literal_exact

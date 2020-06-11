@@ -1,13 +1,15 @@
 #include <assert.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "bitap-cpu/bench.h"
+#include "bitap-cpu/fuzzy.h"
 #include "cuda_utils.h"
-#include "exact.h"
 
 #define RUNS 100
 #define FILENAME "oanc.txt"
-#define PATTERN "voyage"
+#define PATTERN "throughout"
+#define ERRORS 2
 
 size_t last_line_start(const char *buffer, size_t length) {
 	while (length) {
@@ -42,7 +44,7 @@ int main() {
 		stop_time();
 
 		size_t match_count;
-		find_exact(&processed_pattern, text, length, match_indices, &match_count);
+		find_fuzzy(&processed_pattern, ERRORS, text, length, match_indices, &match_count);
 
 		start_time(FIND_LINES);
 		size_t last_index = 0;

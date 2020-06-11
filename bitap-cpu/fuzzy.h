@@ -15,6 +15,9 @@
  *   It must have at least `text_length` entries (in case every index matches).
  * @param match_count will be used to return the number of matches
  */
+#ifdef __cplusplus
+extern "C"
+#endif
 void find_fuzzy(
 	const pattern_t *pattern,
 	uint32_t errors,

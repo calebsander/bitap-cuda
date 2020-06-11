@@ -1,4 +1,4 @@
-#include "exact.h"
+#include "bitap-cpu/exact.h"
 #include <stdlib.h>
 #include "bitap-cpu/bench.h"
 #include "cuda_utils.h"
