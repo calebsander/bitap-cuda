@@ -2,6 +2,7 @@
 #define BENCH_H
 
 #ifdef BENCH
+	/** The stages of a CPU/GPU grep */
 	typedef enum {
 		LOAD_FILE,
 		PROCESS_PATTERN,
@@ -19,15 +20,19 @@
 	extern "C" {
 	#endif
 
+	/** Starts timing the given stage (only one timer can be active at once) */
 	void start_time(bench_stage_t);
+	/** Stops timing the current stage and saves its duration */
 	void stop_time(void);
 
+	/** Prints the mean and standard deviation of all stage time estimates */
 	void print_bench_times(void);
 
 	#ifdef __cplusplus
 	}
 	#endif
 #else
+	// These "functions" are no-ops when benchmarking is disabled
 	#define start_time(stage) do {} while (0)
 	#define stop_time() do {} while (0)
 #endif

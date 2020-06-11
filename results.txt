@@ -1,0 +1,551 @@
+CPU
+
+csander@titan:~/bitap-cuda/bitap-cpu$ ./bench-read
+Stage "load file": 6.018186e-02 s
+Stage "process pattern": 7.597200e-07 s (+/- 4.046655e-09)
+Stage "allocate indices": 7.448420e-06 s (+/- 9.477461e-08)
+Stage "copy to gpu": 0
+Stage "find matches": 3.193866e-01 s (+/- 2.665014e-04)
+Stage "copy from gpu": 0
+Stage "sort matches": 0
+Stage "find lines": 8.302400e-04 s (+/- 1.275973e-06)
+
+csander@titan:~/bitap-cuda/bitap-cpu$ ./bench-mmap
+Stage "load file": 7.374000e-06 s
+Stage "process pattern": 8.175700e-07 s (+/- 1.096943e-08)
+Stage "allocate indices": 8.782880e-06 s (+/- 8.969561e-07)
+Stage "copy to gpu": 0
+Stage "find matches": 3.204796e-01 s (+/- 4.433481e-04)
+Stage "copy from gpu": 0
+Stage "sort matches": 0
+Stage "find lines": 8.592020e-04 s (+/- 1.265496e-06)
+
+EXACT GLOBAL
+
+1 block:
+Stage "load file": 2.086257e-01 s
+Stage "process pattern": 1.335670e-06 s (+/- 1.671065e-08)
+Stage "allocate indices": 1.739242e-01 s (+/- 9.892804e-05)
+Stage "copy to gpu": 9.293644e-03 s (+/- 1.978579e-05)
+Stage "find matches": 9.996629e-02 s (+/- 1.428047e-04)
+Stage "copy from gpu": 6.648569e-03 s (+/- 9.364222e-06)
+Stage "sort matches": 4.267030e-06 s (+/- 1.380775e-08)
+Stage "find lines": 1.859893e-05 s (+/- 6.070514e-08)
+
+4 blocks:
+Stage "load file": 2.305957e-01 s
+Stage "process pattern": 1.465960e-06 s (+/- 1.918087e-08)
+Stage "allocate indices": 1.763578e-01 s (+/- 4.089655e-04)
+Stage "copy to gpu": 9.323522e-03 s (+/- 2.514158e-05)
+Stage "find matches": 2.555516e-02 s (+/- 4.000362e-05)
+Stage "copy from gpu": 6.662674e-03 s (+/- 1.010381e-05)
+Stage "sort matches": 4.304360e-06 s (+/- 2.257265e-08)
+Stage "find lines": 1.866202e-05 s (+/- 5.802626e-08)
+
+16 blocks:
+Stage "load file": 2.092737e-01 s
+Stage "process pattern": 1.589780e-06 s (+/- 1.979353e-08)
+Stage "allocate indices": 1.746082e-01 s (+/- 6.301563e-05)
+Stage "copy to gpu": 9.322745e-03 s (+/- 2.195415e-05)
+Stage "find matches": 1.883408e-02 s (+/- 5.462492e-05)
+Stage "copy from gpu": 6.651584e-03 s (+/- 1.008440e-05)
+Stage "sort matches": 4.160530e-06 s (+/- 2.467679e-08)
+Stage "find lines": 1.877868e-05 s (+/- 1.335662e-07)
+
+32 blocks:
+Stage "load file": 2.217365e-01 s
+Stage "process pattern": 1.373450e-06 s (+/- 2.161141e-08)
+Stage "allocate indices": 1.753446e-01 s (+/- 2.667874e-04)
+Stage "copy to gpu": 9.293720e-03 s (+/- 2.186274e-05)
+Stage "find matches": 3.587562e-02 s (+/- 1.502527e-04)
+Stage "copy from gpu": 6.647962e-03 s (+/- 9.567765e-06)
+Stage "sort matches": 4.459210e-06 s (+/- 1.592262e-07)
+Stage "find lines": 1.861645e-05 s (+/- 1.943311e-07)
+
+64 blocks:
+Stage "load file": 2.146575e-01 s
+Stage "process pattern": 1.452700e-06 s (+/- 2.127311e-08)
+Stage "allocate indices": 1.791178e-01 s (+/- 1.275081e-03)
+Stage "copy to gpu": 9.362416e-03 s (+/- 3.171919e-05)
+Stage "find matches": 3.196732e-02 s (+/- 2.505030e-05)
+Stage "copy from gpu": 6.688080e-03 s (+/- 1.569438e-05)
+Stage "sort matches": 4.323130e-06 s (+/- 1.102625e-07)
+Stage "find lines": 1.867560e-05 s (+/- 7.763115e-08)
+
+128 blocks:
+Stage "load file": 1.997830e-01 s
+Stage "process pattern": 1.620540e-06 s (+/- 2.123434e-08)
+Stage "allocate indices": 1.740591e-01 s (+/- 1.164581e-04)
+Stage "copy to gpu": 9.279781e-03 s (+/- 2.314144e-05)
+Stage "find matches": 3.327405e-02 s (+/- 7.148766e-05)
+Stage "copy from gpu": 6.654344e-03 s (+/- 9.923553e-06)
+Stage "sort matches": 3.974650e-06 s (+/- 2.500897e-08)
+Stage "find lines": 1.839803e-05 s (+/- 6.149772e-08)
+
+256 blocks:
+Stage "load file": 2.186508e-01 s
+Stage "process pattern": 1.660220e-06 s (+/- 2.621443e-08)
+Stage "allocate indices": 1.769130e-01 s (+/- 4.663995e-04)
+Stage "copy to gpu": 9.285113e-03 s (+/- 2.567974e-05)
+Stage "find matches": 2.041510e-02 s (+/- 5.656457e-05)
+Stage "copy from gpu": 6.666864e-03 s (+/- 1.053171e-05)
+Stage "sort matches": 3.815170e-06 s (+/- 2.716276e-08)
+Stage "find lines": 1.844816e-05 s (+/- 5.942997e-08)
+
+512 blocks:
+Stage "load file": 2.200820e-01 s
+Stage "process pattern": 1.532320e-06 s (+/- 2.057660e-08)
+Stage "allocate indices": 1.813877e-01 s (+/- 1.607212e-03)
+Stage "copy to gpu": 9.373040e-03 s (+/- 3.556898e-05)
+Stage "find matches": 1.702964e-02 s (+/- 4.252725e-05)
+Stage "copy from gpu": 6.725547e-03 s (+/- 2.139743e-05)
+Stage "sort matches": 3.633900e-06 s (+/- 4.839653e-08)
+Stage "find lines": 1.852839e-05 s (+/- 8.781201e-08
+
+1024 blocks:
+Stage "load file": 2.046661e-01 s
+Stage "process pattern": 1.367270e-06 s (+/- 1.779522e-08)
+Stage "allocate indices": 1.749122e-01 s (+/- 9.952006e-05)
+Stage "copy to gpu": 9.310805e-03 s (+/- 2.052586e-05)
+Stage "find matches": 1.711198e-02 s (+/- 1.571166e-05)
+Stage "copy from gpu": 6.636186e-03 s (+/- 1.309930e-06)
+Stage "sort matches": 3.513580e-06 s (+/- 1.242704e-08)
+Stage "find lines": 1.856250e-05 s (+/- 5.766602e-08)
+
+2048 blocks:
+Stage "load file": 2.019312e-01 s
+Stage "process pattern": 1.427120e-06 s (+/- 1.935582e-08)
+Stage "allocate indices": 1.745826e-01 s (+/- 6.249743e-05)
+Stage "copy to gpu": 9.380495e-03 s (+/- 1.851214e-05)
+Stage "find matches": 1.814672e-02 s (+/- 4.606951e-05)
+Stage "copy from gpu": 6.643205e-03 s (+/- 9.527085e-06)
+Stage "sort matches": 3.216580e-06 s (+/- 1.227754e-08)
+Stage "find lines": 1.815292e-05 s (+/- 5.812151e-08)
+
+4096 blocks:
+Stage "load file": 2.060099e-01 s
+Stage "process pattern": 1.632470e-06 s (+/- 2.662680e-08)
+Stage "allocate indices": 1.749065e-01 s (+/- 1.299536e-04)
+Stage "copy to gpu": 9.330549e-03 s (+/- 2.199421e-05)
+Stage "find matches": 1.835129e-02 s (+/- 4.417769e-05)
+Stage "copy from gpu": 6.654446e-03 s (+/- 1.000671e-05)
+Stage "sort matches": 2.975460e-06 s (+/- 1.767708e-08)
+Stage "find lines": 1.851119e-05 s (+/- 1.272993e-07)
+
+EXACT SHARED
+
+(2048 blocks, 1024 threads):
+Stage "load file": 2.062169e-01 s
+Stage "process pattern": 1.404660e-06 s (+/- 1.928141e-08)
+Stage "allocate indices": 1.741935e-01 s (+/- 2.671532e-04)
+Stage "copy to gpu": 9.308239e-03 s (+/- 2.464698e-05)
+Stage "find matches": 1.423948e-02 s (+/- 4.719191e-05)
+Stage "copy from gpu": 6.651868e-03 s (+/- 1.076755e-05)
+Stage "sort matches": 3.288330e-06 s (+/- 1.495277e-08)
+Stage "find lines": 1.863640e-05 s (+/- 1.918707e-07)
+
+(2048 blocks, 512 threads):
+Stage "load file": 2.286069e-01 s
+Stage "process pattern": 1.653420e-06 s (+/- 2.140031e-08)
+Stage "allocate indices": 1.743689e-01 s (+/- 4.315814e-04)
+Stage "copy to gpu": 9.340081e-03 s (+/- 2.323829e-05)
+Stage "find matches": 1.320383e-02 s (+/- 5.422413e-05)
+Stage "copy from gpu": 6.657616e-03 s (+/- 1.337744e-05)
+Stage "sort matches": 3.315290e-06 s (+/- 1.268749e-08)
+Stage "find lines": 1.854364e-05 s (+/- 7.315328e-08)
+
+(2048 blocks, 256 threads):
+Stage "load file": 2.160627e-01 s
+Stage "process pattern": 1.623770e-06 s (+/- 2.458994e-08)
+Stage "allocate indices": 1.746630e-01 s (+/- 6.518873e-04)
+Stage "copy to gpu": 9.430444e-03 s (+/- 3.073794e-05)
+Stage "find matches": 1.303281e-02 s (+/- 4.620018e-05)
+Stage "copy from gpu": 6.664732e-03 s (+/- 1.283172e-05)
+Stage "sort matches": 3.452890e-06 s (+/- 1.231206e-07)
+Stage "find lines": 1.874463e-05 s (+/- 1.930814e-07)
+
+(2048 blocks, 128 threads):
+Stage "load file": 2.066084e-01 s
+Stage "process pattern": 1.640460e-06 s (+/- 1.133594e-07)
+Stage "allocate indices": 1.753534e-01 s (+/- 4.542056e-04)
+Stage "copy to gpu": 9.341608e-03 s (+/- 2.640923e-05)
+Stage "find matches": 1.290780e-02 s (+/- 4.445208e-05)
+Stage "copy from gpu": 6.762672e-03 s (+/- 1.510089e-05)
+Stage "sort matches": 3.278740e-06 s (+/- 4.023026e-08)
+Stage "find lines": 1.867575e-05 s (+/- 9.571676e-08)
+
+(2048 blocks, 64 threads):
+Stage "load file": 2.121797e-01 s
+Stage "process pattern": 1.636440e-06 s (+/- 2.406655e-08)
+Stage "allocate indices": 1.758288e-01 s (+/- 9.024357e-04)
+Stage "copy to gpu": 9.316952e-03 s (+/- 2.511260e-05)
+Stage "find matches": 1.279826e-02 s (+/- 5.173638e-05)
+Stage "copy from gpu": 6.675747e-03 s (+/- 1.544707e-05)
+Stage "sort matches": 3.367250e-06 s (+/- 2.204975e-08)
+Stage "find lines": 1.859892e-05 s (+/- 8.308529e-08)
+
+(2048 blocks, 32 threads);
+Stage "load file": 2.199368e-01 s
+Stage "process pattern": 1.402870e-06 s (+/- 2.005690e-08)
+Stage "allocate indices": 1.783482e-01 s (+/- 1.387404e-03)
+Stage "copy to gpu": 9.417133e-03 s (+/- 3.285013e-05)
+Stage "find matches": 1.779175e-02 s (+/- 4.693483e-05)
+Stage "copy from gpu": 6.779878e-03 s (+/- 1.743789e-05)
+Stage "sort matches": 3.367740e-06 s (+/- 2.911550e-08)
+Stage "find lines": 1.863517e-05 s (+/- 7.857032e-08)
+
+(4096 blocks, 1024 threads):
+Stage "load file": 2.038251e-01 s
+Stage "process pattern": 1.364830e-06 s (+/- 1.697582e-08)
+Stage "allocate indices": 1.755619e-01 s (+/- 6.689222e-04)
+Stage "copy to gpu": 9.348890e-03 s (+/- 2.623465e-05)
+Stage "find matches": 1.523680e-02 s (+/- 2.924413e-05)
+Stage "copy from gpu": 6.654988e-03 s (+/- 8.718696e-06)
+Stage "sort matches": 3.222570e-06 s (+/- 1.203849e-07)
+Stage "find lines": 1.887596e-05 s (+/- 2.346023e-07)
+
+(4096 blocks, 256 threads):
+Stage "load file": 2.123579e-01 s
+Stage "process pattern": 1.461750e-06 s (+/- 2.141091e-08)
+Stage "allocate indices": 1.739085e-01 s (+/- 6.553601e-05)
+Stage "copy to gpu": 9.324293e-03 s (+/- 2.117270e-05)
+Stage "find matches": 1.322258e-02 s (+/- 5.382679e-05)
+Stage "copy from gpu": 6.660794e-03 s (+/- 1.327141e-05)
+Stage "sort matches": 3.240260e-06 s (+/- 1.703926e-08)
+Stage "find lines": 1.827966e-05 s (+/- 7.347149e-08)
+
+(4096 blocks, 64 threads):
+Stage "load file": 2.261685e-01 s
+Stage "process pattern": 1.615580e-06 s (+/- 2.747798e-08)
+Stage "allocate indices": 1.744909e-01 s (+/- 4.655598e-04)
+Stage "copy to gpu": 9.357037e-03 s (+/- 2.321180e-05)
+Stage "find matches": 1.277586e-02 s (+/- 5.455628e-05)
+Stage "copy from gpu": 6.652053e-03 s (+/- 1.367363e-05)
+Stage "sort matches": 3.244720e-06 s (+/- 1.254843e-08)
+Stage "find lines": 1.832308e-05 s (+/- 5.399485e-08)
+
+(4096 blocks, 32 threads):
+Stage "load file": 1.814641e-01 s
+Stage "process pattern": 1.606900e-06 s (+/- 2.326917e-08)
+Stage "allocate indices": 1.746597e-01 s (+/- 1.586024e-04)
+Stage "copy to gpu": 9.300219e-03 s (+/- 2.165239e-05)
+Stage "find matches": 1.265726e-02 s (+/- 4.556824e-05)
+Stage "copy from gpu": 6.638852e-03 s (+/- 2.071996e-06)
+Stage "sort matches": 3.347170e-06 s (+/- 1.283658e-08)
+Stage "find lines": 1.844510e-05 s (+/- 6.010510e-08)
+
+(8192 blocks, 32 threads):
+Stage "load file": 2.186222e-01 s
+Stage "process pattern": 1.379670e-06 s (+/- 1.573410e-08)
+Stage "allocate indices": 1.751599e-01 s (+/- 2.127785e-04)
+Stage "copy to gpu": 9.305576e-03 s (+/- 2.023440e-05)
+Stage "find matches": 1.279632e-02 s (+/- 4.876413e-05)
+Stage "copy from gpu": 6.655039e-03 s (+/- 1.048939e-05)
+Stage "sort matches": 3.187870e-06 s (+/- 1.297938e-08)
+Stage "find lines": 1.852420e-05 s (+/- 1.387045e-07)
+
+(8192 blocks, 64 threads):
+Stage "load file": 2.273979e-01 s
+Stage "process pattern": 1.492330e-06 s (+/- 2.277542e-08)
+Stage "allocate indices": 1.749867e-01 s (+/- 2.964055e-04)
+Stage "copy to gpu": 9.284325e-03 s (+/- 2.403798e-05)
+Stage "find matches": 1.293979e-02 s (+/- 5.759963e-05)
+Stage "copy from gpu": 6.672687e-03 s (+/- 1.652152e-05)
+Stage "sort matches": 3.341060e-06 s (+/- 1.290776e-08)
+Stage "find lines": 1.838813e-05 s (+/- 8.525543e-08)
+
+EXACT REDUCE
+
+1 block:
+Stage "load file": 1.996111e-01 s
+Stage "process pattern": 1.657030e-06 s (+/- 1.142016e-07)
+Stage "allocate indices": 1.726836e-01 s (+/- 1.705829e-04)
+Stage "copy to gpu": 9.382495e-03 s (+/- 2.115250e-05)
+Stage "find matches": 1.873079e-01 s (+/- 7.399405e-05)
+Stage "copy from gpu": 6.650240e-03 s (+/- 5.147300e-06)
+Stage "sort matches": 2.314650e-06 s (+/- 1.603231e-08)
+Stage "find lines": 1.846419e-05 s (+/- 1.187667e-07)
+
+4 blocks:
+Stage "load file": 1.942475e-01 s
+Stage "process pattern": 1.363390e-06 s (+/- 1.657791e-08)
+Stage "allocate indices": 1.758951e-01 s (+/- 9.473185e-04)
+Stage "copy to gpu": 9.365081e-03 s (+/- 2.476056e-05)
+Stage "find matches": 4.754368e-02 s (+/- 1.387421e-05)
+Stage "copy from gpu": 6.661479e-03 s (+/- 9.016618e-06)
+Stage "sort matches": 2.569510e-06 s (+/- 1.933365e-08)
+Stage "find lines": 1.863775e-05 s (+/- 6.284789e-08)
+
+16 blocks:
+Stage "load file": 1.816395e-01 s
+Stage "process pattern": 1.355640e-06 s (+/- 1.436402e-08)
+Stage "allocate indices": 1.723340e-01 s (+/- 7.686776e-05)
+Stage "copy to gpu": 9.325291e-03 s (+/- 1.955238e-05)
+Stage "find matches": 1.246911e-02 s (+/- 3.521570e-05)
+Stage "copy from gpu": 6.659827e-03 s (+/- 1.303470e-05)
+Stage "sort matches": 2.599280e-06 s (+/- 1.390076e-08)
+Stage "find lines": 1.831677e-05 s (+/- 1.235205e-07)
+
+64 blocks:
+Stage "load file": 1.897172e-01 s
+Stage "process pattern": 1.404100e-06 s (+/- 1.957711e-08)
+Stage "allocate indices": 1.729425e-01 s (+/- 2.400761e-04)
+Stage "copy to gpu": 9.288348e-03 s (+/- 2.384163e-05)
+Stage "find matches": 1.300440e-02 s (+/- 3.013360e-05)
+Stage "copy from gpu": 6.652616e-03 s (+/- 1.002612e-05)
+Stage "sort matches": 3.050210e-06 s (+/- 1.839101e-08)
+Stage "find lines": 1.865914e-05 s (+/- 5.766639e-08)
+
+256 blocks:
+Stage "load file": 2.322760e-01 s
+Stage "process pattern": 1.472620e-06 s (+/- 2.206387e-08)
+Stage "allocate indices": 1.745886e-01 s (+/- 6.317780e-04)
+Stage "copy to gpu": 9.358537e-03 s (+/- 2.098043e-05)
+Stage "find matches": 1.278118e-02 s (+/- 4.283544e-05)
+Stage "copy from gpu": 6.659879e-03 s (+/- 1.186158e-05)
+Stage "sort matches": 3.777950e-06 s (+/- 2.087568e-08)
+Stage "find lines": 1.854166e-05 s (+/- 5.540625e-08)
+
+1024 blocks:
+Stage "load file": 1.837255e-01 s
+Stage "process pattern": 1.591120e-06 s (+/- 2.160559e-08)
+Stage "allocate indices": 1.740241e-01 s (+/- 6.848329e-04)
+Stage "copy to gpu": 9.344508e-03 s (+/- 3.033399e-05)
+Stage "find matches": 1.260023e-02 s (+/- 3.918499e-05)
+Stage "copy from gpu": 6.651275e-03 s (+/- 7.795557e-06)
+Stage "sort matches": 4.115810e-06 s (+/- 1.545123e-07)
+Stage "find lines": 1.871642e-05 s (+/- 7.290669e-08)
+
+4096 blocks:
+Stage "load file": 1.978778e-01 s
+Stage "process pattern": 1.459440e-06 s (+/- 1.862051e-08)
+Stage "allocate indices": 1.752579e-01 s (+/- 1.048858e-03)
+Stage "copy to gpu": 9.376524e-03 s (+/- 2.404056e-05)
+Stage "find matches": 1.248598e-02 s (+/- 4.144924e-05)
+Stage "copy from gpu": 6.663941e-03 s (+/- 1.152611e-05)
+Stage "sort matches": 4.039770e-06 s (+/- 2.379852e-08)
+Stage "find lines": 1.871678e-05 s (+/- 7.167539e-08)
+
+EXACT WARP SHUFFLE
+
+1 block:
+Stage "load file": 1.963550e-01 s
+Stage "process pattern": 1.388740e-06 s (+/- 1.687467e-08)
+Stage "allocate indices": 1.745299e-01 s (+/- 1.847971e-04)
+Stage "copy to gpu": 9.378443e-03 s (+/- 1.300099e-05)
+Stage "find matches": 1.160176e-01 s (+/- 1.794003e-04)
+Stage "copy from gpu": 6.656699e-03 s (+/- 1.178209e-05)
+Stage "sort matches": 2.512590e-06 s (+/- 1.221289e-07)
+Stage "find lines": 1.847299e-05 s (+/- 2.004804e-07)
+
+4 blocks:
+Stage "load file": 2.295688e-01 s
+Stage "process pattern": 1.432670e-06 s (+/- 1.826558e-08)
+Stage "allocate indices": 1.794553e-01 s (+/- 1.463860e-03)
+Stage "copy to gpu": 9.463069e-03 s (+/- 2.864239e-05)
+Stage "find matches": 2.943975e-02 s (+/- 5.066232e-05)
+Stage "copy from gpu": 6.706859e-03 s (+/- 1.884679e-05)
+Stage "sort matches": 2.608590e-06 s (+/- 2.285921e-08)
+Stage "find lines": 1.878404e-05 s (+/- 9.174861e-08)
+
+16 blocks:
+Stage "load file": 2.315924e-01 s
+Stage "process pattern": 1.482350e-06 s (+/- 1.880873e-08)
+Stage "allocate indices": 1.751210e-01 s (+/- 2.354104e-04)
+Stage "copy to gpu": 9.444165e-03 s (+/- 2.447931e-05)
+Stage "find matches": 1.185328e-02 s (+/- 2.402412e-05)
+Stage "copy from gpu": 6.650325e-03 s (+/- 9.918466e-06)
+Stage "sort matches": 3.087310e-06 s (+/- 2.081805e-08)
+Stage "find lines": 1.906902e-05 s (+/- 2.956783e-07)
+
+64 blocks:
+Stage "load file": 2.163816e-01 s
+Stage "process pattern": 1.474490e-06 s (+/- 1.087297e-07)
+Stage "allocate indices": 1.752061e-01 s (+/- 7.056347e-04)
+Stage "copy to gpu": 9.429107e-03 s (+/- 2.118299e-05)
+Stage "find matches": 1.241921e-02 s (+/- 5.580896e-05)
+Stage "copy from gpu": 6.666941e-03 s (+/- 1.327997e-05)
+Stage "sort matches": 3.320460e-06 s (+/- 1.200938e-07)
+Stage "find lines": 1.856006e-05 s (+/- 9.461393e-08)
+
+256 blocks:
+Stage "load file": 1.976334e-01 s
+Stage "process pattern": 1.454400e-06 s (+/- 1.564685e-08)
+Stage "allocate indices": 1.731523e-01 s (+/- 4.353860e-04)
+Stage "copy to gpu": 9.415388e-03 s (+/- 2.623342e-05)
+Stage "find matches": 1.247964e-02 s (+/- 5.725338e-05)
+Stage "copy from gpu": 6.659944e-03 s (+/- 1.244661e-05)
+Stage "sort matches": 3.761560e-06 s (+/- 4.442467e-08)
+Stage "find lines": 1.888535e-05 s (+/- 1.149112e-07)
+
+1024 blocks:
+Stage "load file": 2.280125e-01 s
+Stage "process pattern": 1.551710e-06 s (+/- 2.475227e-08)
+Stage "allocate indices": 1.779556e-01 s (+/- 1.429804e-03)
+Stage "copy to gpu": 9.433115e-03 s (+/- 2.514199e-05)
+Stage "find matches": 1.248142e-02 s (+/- 4.984548e-05)
+Stage "copy from gpu": 6.685339e-03 s (+/- 1.728809e-05)
+Stage "sort matches": 3.933630e-06 s (+/- 2.576284e-08)
+Stage "find lines": 1.888595e-05 s (+/- 8.225041e-08)
+
+4096 blocks:
+Stage "load file": 2.221648e-01 s
+Stage "process pattern": 1.309540e-06 s (+/- 1.389477e-08)
+Stage "allocate indices": 1.728250e-01 s (+/- 8.475695e-05)
+Stage "copy to gpu": 9.366239e-03 s (+/- 1.529961e-05)
+Stage "find matches": 1.263555e-02 s (+/- 4.490991e-05)
+Stage "copy from gpu": 6.642899e-03 s (+/- 9.664079e-06)
+Stage "sort matches": 3.914500e-06 s (+/- 1.257025e-08)
+Stage "find lines": 1.836159e-05 s (+/- 1.208673e-07)
+
+FUZZY REDUCE
+
+1 block:
+Stage "load file": 2.021769e-01 s
+Stage "process pattern": 1.448180e-06 s (+/- 1.855919e-08)
+Stage "allocate indices": 1.734229e-01 s (+/- 7.366940e-04)
+Stage "copy to gpu": 9.353118e-03 s (+/- 2.425735e-05)
+Stage "find matches": 4.982508e-01 s (+/- 2.717593e-04)
+Stage "copy from gpu": 6.686671e-03 s (+/- 2.259614e-05)
+Stage "sort matches": 2.855278e-04 s (+/- 2.495054e-06)
+Stage "find lines": 9.175249e-04 s (+/- 2.458576e-06)
+
+2 blocks:
+Stage "load file": 2.029165e-01 s
+Stage "process pattern": 1.460800e-06 s (+/- 2.233710e-08)
+Stage "allocate indices": 1.722015e-01 s (+/- 1.049655e-04)
+Stage "copy to gpu": 9.297062e-03 s (+/- 2.359126e-05)
+Stage "find matches": 2.522388e-01 s (+/- 3.176426e-04)
+Stage "copy from gpu": 6.647328e-03 s (+/- 3.481765e-06)
+Stage "sort matches": 3.843863e-04 s (+/- 1.521043e-06)
+Stage "find lines": 9.099800e-04 s (+/- 2.826652e-06)
+
+4 blocks:
+Stage "load file": 2.242016e-01 s
+Stage "process pattern": 1.397530e-06 s (+/- 1.333084e-08)
+Stage "allocate indices": 1.738586e-01 s (+/- 8.096928e-04)
+Stage "copy to gpu": 9.355144e-03 s (+/- 3.146637e-05)
+Stage "find matches": 1.266744e-01 s (+/- 2.235348e-04)
+Stage "copy from gpu": 6.666377e-03 s (+/- 1.097583e-05)
+Stage "sort matches": 4.169639e-04 s (+/- 3.183363e-06)
+Stage "find lines": 9.186164e-04 s (+/- 3.928959e-06)
+
+8 blocks:
+Stage "load file": 2.297582e-01 s
+Stage "process pattern": 1.329230e-06 s (+/- 1.520781e-08)
+Stage "allocate indices": 1.752698e-01 s (+/- 1.045371e-03)
+Stage "copy to gpu": 9.349708e-03 s (+/- 2.667027e-05)
+Stage "find matches": 6.366972e-02 s (+/- 1.114913e-04)
+Stage "copy from gpu": 6.671585e-03 s (+/- 1.429808e-05)
+Stage "sort matches": 4.442228e-04 s (+/- 3.439217e-06)
+Stage "find lines": 9.122446e-04 s (+/- 2.639461e-06)
+
+16 blocks:
+Stage "load file": 2.136598e-01 s
+Stage "process pattern": 1.574000e-06 s (+/- 2.005671e-08)
+Stage "allocate indices": 1.767956e-01 s (+/- 1.412731e-03)
+Stage "copy to gpu": 9.342369e-03 s (+/- 3.155343e-05)
+Stage "find matches": 3.205045e-02 s (+/- 6.221669e-05)
+Stage "copy from gpu": 6.697945e-03 s (+/- 1.705971e-05)
+Stage "sort matches": 4.495656e-04 s (+/- 4.315254e-06)
+Stage "find lines": 9.184009e-04 s (+/- 3.456393e-06)
+
+32 blocks:
+Stage "load file": 2.266771e-01 s
+Stage "process pattern": 1.391560e-06 s (+/- 1.908774e-08)
+Stage "allocate indices": 1.720133e-01 s (+/- 1.729041e-04)
+Stage "copy to gpu": 9.309751e-03 s (+/- 1.685705e-05)
+Stage "find matches": 2.328890e-02 s (+/- 4.425086e-05)
+Stage "copy from gpu": 6.645844e-03 s (+/- 9.393795e-06)
+Stage "sort matches": 5.055552e-04 s (+/- 9.314611e-07)
+Stage "find lines": 9.082945e-04 s (+/- 1.189847e-06)
+
+64 blocks:
+Stage "load file": 2.297871e-01 s
+Stage "process pattern": 1.390840e-06 s (+/- 1.840861e-08)
+Stage "allocate indices": 1.733078e-01 s (+/- 2.460805e-04)
+Stage "copy to gpu": 9.335015e-03 s (+/- 2.505899e-05)
+Stage "find matches": 2.048365e-02 s (+/- 6.818744e-05)
+Stage "copy from gpu": 6.659300e-03 s (+/- 1.057991e-05)
+Stage "sort matches": 4.849117e-04 s (+/- 1.410482e-06)
+Stage "find lines": 9.131781e-04 s (+/- 1.279112e-06)
+
+128 blocks:
+Stage "load file": 2.083456e-01 s
+Stage "process pattern": 1.502900e-06 s (+/- 2.366460e-08)
+Stage "allocate indices": 1.730008e-01 s (+/- 5.497411e-04)
+Stage "copy to gpu": 9.317303e-03 s (+/- 2.208191e-05)
+Stage "find matches": 1.841975e-02 s (+/- 8.906235e-05)
+Stage "copy from gpu": 6.654396e-03 s (+/- 1.033215e-05)
+Stage "sort matches": 5.164491e-04 s (+/- 2.108084e-06)
+Stage "find lines": 9.101219e-04 s (+/- 1.914316e-06)
+
+256 blocks:
+Stage "load file": 2.001644e-01 s
+Stage "process pattern": 1.504030e-06 s (+/- 5.247335e-08)
+Stage "allocate indices": 1.736922e-01 s (+/- 7.641263e-04)
+Stage "copy to gpu": 9.333982e-03 s (+/- 2.720614e-05)
+Stage "find matches": 1.749435e-02 s (+/- 6.554138e-05)
+Stage "copy from gpu": 6.659382e-03 s (+/- 1.164945e-05)
+Stage "sort matches": 5.338219e-04 s (+/- 2.754995e-06)
+Stage "find lines": 9.069207e-04 s (+/- 1.884728e-06)
+
+512 blocks:
+Stage "load file": 2.276264e-01 s
+Stage "process pattern": 1.463640e-06 s (+/- 1.974359e-08)
+Stage "allocate indices": 1.726287e-01 s (+/- 1.654307e-04)
+Stage "copy to gpu": 9.358344e-03 s (+/- 2.753252e-05)
+Stage "find matches": 1.707598e-02 s (+/- 5.176403e-05)
+Stage "copy from gpu": 6.667341e-03 s (+/- 1.540783e-05)
+Stage "sort matches": 5.509322e-04 s (+/- 9.946061e-06)
+Stage "find lines": 9.268065e-04 s (+/- 1.037213e-05)
+
+1024 blocks:
+Stage "load file": 2.287847e-01 s
+Stage "process pattern": 1.328350e-06 s (+/- 1.505530e-08)
+Stage "allocate indices": 1.733044e-01 s (+/- 4.085298e-04)
+Stage "copy to gpu": 9.353111e-03 s (+/- 3.188832e-05)
+Stage "find matches": 1.669651e-02 s (+/- 4.543846e-05)
+Stage "copy from gpu": 6.656166e-03 s (+/- 9.462698e-06)
+Stage "sort matches": 5.482351e-04 s (+/- 2.206366e-06)
+Stage "find lines": 9.185829e-04 s (+/- 6.408310e-06)
+
+2048 blocks:
+Stage "load file": 2.349915e-01 s
+Stage "process pattern": 1.316240e-06 s (+/- 1.239246e-08)
+Stage "allocate indices": 1.722157e-01 s (+/- 2.006480e-04)
+Stage "copy to gpu": 9.319880e-03 s (+/- 2.134605e-05)
+Stage "find matches": 1.656482e-02 s (+/- 5.022282e-05)
+Stage "copy from gpu": 6.656397e-03 s (+/- 1.334914e-05)
+Stage "sort matches": 5.465197e-04 s (+/- 1.086634e-06)
+Stage "find lines": 9.078285e-04 s (+/- 7.877978e-07)
+
+4096 blocks:
+Stage "load file": 2.044816e-01 s
+Stage "process pattern": 1.362050e-06 s (+/- 1.962928e-08)
+Stage "allocate indices": 1.721094e-01 s (+/- 5.975975e-05)
+Stage "copy to gpu": 9.257798e-03 s (+/- 2.319123e-05)
+Stage "find matches": 1.650310e-02 s (+/- 3.425193e-05)
+Stage "copy from gpu": 6.649726e-03 s (+/- 9.904235e-06)
+Stage "sort matches": 5.434330e-04 s (+/- 1.293656e-06)
+Stage "find lines": 9.049243e-04 s (+/- 1.563452e-06)
+
+8192 blocks:
+Stage "load file": 2.291575e-01 s
+Stage "process pattern": 1.367150e-06 s (+/- 1.842636e-08)
+Stage "allocate indices": 1.727754e-01 s (+/- 2.132282e-04)
+Stage "copy to gpu": 9.398179e-03 s (+/- 1.818260e-05)
+Stage "find matches": 1.655064e-02 s (+/- 3.446539e-05)
+Stage "copy from gpu": 6.648037e-03 s (+/- 1.064449e-05)
+Stage "sort matches": 5.304618e-04 s (+/- 1.125871e-06)
+Stage "find lines": 9.065554e-04 s (+/- 1.627381e-06)
+
+16384 blocks:
+Stage "load file": 2.238695e-01 s
+Stage "process pattern": 1.407550e-06 s (+/- 1.654623e-08)
+Stage "allocate indices": 1.723900e-01 s (+/- 2.527642e-04)
+Stage "copy to gpu": 9.406153e-03 s (+/- 1.577443e-05)
+Stage "find matches": 1.659383e-02 s (+/- 3.156096e-05)
+Stage "copy from gpu": 6.649680e-03 s (+/- 1.131235e-05)
+Stage "sort matches": 4.977207e-04 s (+/- 9.235017e-07)
+Stage "find lines": 9.016045e-04 s (+/- 6.726457e-07)

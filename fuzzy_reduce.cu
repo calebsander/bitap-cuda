@@ -13,8 +13,8 @@
  *
  * It includes a few optimizations over the CPU implementation.
  * The main one is based on the observation that only the matches masks
- * at the last distance and the current distance need to be stored,
- * so there are 2 shared-memory arrays that store the masks at these two distances.
+ * at the last distance need to be stored, so there is a single
+ * shared-memory array of matches masks that is updated `distance + 1` times.
  */
 
 #define THREADS_PER_BLOCK 1024
@@ -43,6 +43,8 @@ __device__ __inline__ void reduce_char_mask(
 	pattern_mask_t initial_mask,
 	unsigned thread_index
 ) {
+	__syncthreads();
+
 	// Set the current thread's initial mask by combining
 	// the possibilities of a matched character or an additional error
 	masks[thread_index] = char_mask & error_mask;
@@ -98,9 +100,7 @@ void fuzzy_kernel(
 	size_t *match_count
 ) {
 	// The matches masks at the last error distance
-	__shared__ pattern_mask_t fewer_error_masks[THREADS_PER_BLOCK];
-	// The matches masks at the next error distance
-	__shared__ pattern_mask_t next_error_masks[THREADS_PER_BLOCK];
+	__shared__ pattern_mask_t matches_masks[THREADS_PER_BLOCK];
 
 	pattern_mask_t end_mask = pattern->end_mask;
 	// Loop to cover the entire text with the thread grid
@@ -118,7 +118,7 @@ void fuzzy_kernel(
 
 		pattern_mask_t initial_mask = ~(pattern_mask_t) 0;
 		reduce_char_mask(
-			fewer_error_masks,
+			matches_masks,
 			char_mask,
 			~(pattern_mask_t) 0, // no possibility for errors at distance 0
 			initial_mask,
@@ -132,31 +132,26 @@ void fuzzy_kernel(
 			// This uses the masks from the *previous* distance, so a reduction is unnecessary.
 			// The `fewer_error_mask` at the previous index only exists for `thread_index > 0`.
 			pattern_mask_t last_fewer_errors_mask = thread_index
-				? fewer_error_masks[thread_index - 1]
+				? matches_masks[thread_index - 1]
 				: ~(pattern_mask_t) 0;
 			pattern_mask_t error_mask =
 				// `last_fewer_errors_mask << 1`: a substitution at this character
-				// `fewer_error_masks[thread_index] << 1`: a deletion after this character
-				(last_fewer_errors_mask & fewer_error_masks[thread_index]) << 1 &
+				// `matches_masks[thread_index] << 1`: a deletion after this character
+				(last_fewer_errors_mask & matches_masks[thread_index]) << 1 &
 				// `last_fewer_errors_mask`: this character in the text was inserted
 				last_fewer_errors_mask;
 
 			// Compute the matches masks, reducing the `char_mask`s into `error_mask`
 			initial_mask <<= 1;
-			reduce_char_mask(next_error_masks, char_mask, error_mask, initial_mask, thread_index);
-
-			// The current distance becomes the next distance
-			fewer_error_masks[thread_index] = next_error_masks[thread_index];
+			reduce_char_mask(matches_masks, char_mask, error_mask, initial_mask, thread_index);
 		}
 
 		// A match occurs if the `end_mask` bit is a 1 (0 in the inverted mask)
-		if (~fewer_error_masks[thread_index] & end_mask) {
+		if (~matches_masks[thread_index] & end_mask) {
 			// We don't know where the match started (due to deletions or insertions),
 			// so just output its end index (exclusive)
 			match_indices[atomicAdd(match_count, 1)] = text_index + 1;
 		}
-
-		__syncthreads();
 	}
 }
 
