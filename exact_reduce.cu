@@ -102,6 +102,8 @@ void exact_kernel(
 		if (~not_matches_mask & end_mask) {
 			match_indices[atomicAdd(match_count, 1)] = text_index - pattern->length + 1;
 		}
+
+		__syncthreads();
 	}
 }
 

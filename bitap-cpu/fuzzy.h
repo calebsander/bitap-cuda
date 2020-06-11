@@ -17,7 +17,7 @@
  */
 void find_fuzzy(
 	const pattern_t *pattern,
-	size_t errors,
+	uint32_t errors,
 	const char *text,
 	size_t text_length,
 	size_t *match_indices,
