@@ -3,5 +3,8 @@ agrep
 fgrep
 fuzz-literal-exact
 bench-exact-global
+bench-exact-reduce
+bench-exact-shared
+bench-exact-warp-reduce
 bench-mmap
 bench-read
