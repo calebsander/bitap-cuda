@@ -9,7 +9,7 @@
 #include "fuzzy.h"
 
 #define RUNS 100
-#define FILENAME "oanc.txt"
+#define FILENAME "../oanc.txt"
 #define PATTERN "throughout"
 #define ERRORS 2
 
